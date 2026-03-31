@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarvagya Dynamic Solutions | BARBELL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --deep: #061020;
+    --teal: #0d7e9a;
+    --cyan: #1ab8d8;
+    --steel: #1e3a5f;
+    --silver: #b8c8d8;
+    --white: #f0f6ff;
+    --accent: #00e5ff;
+    --gold: #ffc857;
+    --red: #ff3d5a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--deep);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s, background 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-follower {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--cyan);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.3s ease, left 0.08s, top 0.08s;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(6,16,32,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,229,255,0.12);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, var(--steel), var(--teal));
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: white;
+    position: relative;
+  }
+  .nav-logo-text { line-height: 1.1; }
+  .nav-logo-brand {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+  .nav-logo-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--silver);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: var(--accent); }
+  .nav-links a.active::after { width: 100%; }
+
+  .nav-cta {
+    background: linear-gradient(90deg, var(--teal), var(--cyan));
+    color: var(--deep) !important;
+    padding: 9px 24px !important;
+    font-weight: 700 !important;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 24px rgba(0,229,255,0.4);
+  }
+  .nav-cta::after { display: none !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 48px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(13,126,154,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,229,255,0.07) 0%, transparent 50%),
+      linear-gradient(135deg, #061020 0%, #0a1628 50%, #061420 100%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { transform: perspective(500px) rotateX(5deg) translateY(0); }
+    100% { transform: perspective(500px) rotateX(5deg) translateY(60px); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 700px;
+    animation: heroIn 1.2s ease-out forwards;
+  }
+  @keyframes heroIn {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(13,126,154,0.2);
+    border: 1px solid rgba(0,229,255,0.3);
+    padding: 7px 18px;
+    margin-bottom: 28px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { border-color: rgba(0,229,255,0.3); }
+    50% { border-color: rgba(0,229,255,0.7); box-shadow: 0 0 16px rgba(0,229,255,0.2); }
+  }
+  .badge-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: blink 1s ease infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero-company {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 110px);
+    line-height: 0.95;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .hero-title span {
+    -webkit-text-stroke: 2px var(--accent);
+    color: transparent;
+    display: block;
+  }
+
+  .hero-sub {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--silver);
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    max-width: 520px;
+    line-height: 1.5;
+  }
+
+  /* BULK DELIVERY BANNER */
+  .bulk-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(90deg, rgba(255,200,87,0.15), rgba(255,61,90,0.15));
+    border: 2px solid var(--gold);
+    padding: 12px 28px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bulk-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,200,87,0.1), transparent);
+    animation: shimmer 2s ease infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .bulk-icon { font-size: 24px; }
+  .bulk-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(255,200,87,0.5);
+  }
+  .bulk-sub {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--silver);
+    text-transform: uppercase;
+  }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(90deg, var(--teal), var(--cyan));
+    color: var(--deep);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-decoration: none;
+    padding: 14px 32px;
+    text-transform: uppercase;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,229,255,0.4);
+  }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: transparent;
+    color: var(--white);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-decoration: none;
+    padding: 14px 32px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,255,0.05);
+  }
+
+  .hero-visual {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .hero-product-ring {
+    position: relative;
+    width: 500px; height: 500px;
+  }
+  .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    animation: rotate 20s linear infinite;
+  }
+  .ring-1 {
+    inset: 0;
+    border-color: rgba(0,229,255,0.15);
+    animation-duration: 30s;
+  }
+  .ring-2 {
+    inset: 40px;
+    border-color: rgba(13,126,154,0.25);
+    animation-duration: 20s;
+    animation-direction: reverse;
+  }
+  .ring-3 {
+    inset: 80px;
+    border-color: rgba(0,229,255,0.1);
+    animation-duration: 15s;
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-center-logo {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px; height: 180px;
+  }
+  .hex-logo {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 0 30px rgba(0,229,255,0.4));
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    background: var(--navy);
+    border-top: 1px solid rgba(0,229,255,0.1);
+    border-bottom: 1px solid rgba(0,229,255,0.1);
+    padding: 16px 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 40px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .marquee-dot {
+    width: 4px; height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* STATS */
+  .stats-section {
+    padding: 80px 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--navy);
+  }
+  .stat-card {
+    padding: 40px 32px;
+    background: var(--deep);
+    border-top: 3px solid transparent;
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--cyan));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .stat-card:hover::before { transform: scaleX(1); }
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--silver);
+    text-transform: uppercase;
+  }
+
+  /* FEATURES */
+  .features-section {
+    padding: 100px 48px;
+    position: relative;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .section-tag {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .section-title span { color: var(--accent); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature-card {
+    background: var(--navy);
+    border: 1px solid rgba(0,229,255,0.08);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .feature-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(0,229,255,0.3);
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: linear-gradient(180deg, var(--cyan), var(--teal));
+    transition: height 0.4s;
+  }
+  .feature-card:hover::before { height: 100%; }
+  .feature-icon {
+    width: 56px; height: 56px;
+    background: rgba(13,126,154,0.15);
+    border: 1px solid rgba(0,229,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+  .feature-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  .feature-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--silver);
+  }
+
+  /* PRODUCTS PREVIEW */
+  .products-preview {
+    padding: 100px 48px;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .products-preview::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(13,126,154,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .product-preview-card {
+    background: var(--deep);
+    border: 1px solid rgba(0,229,255,0.08);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+  }
+  .product-preview-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 1px rgba(0,229,255,0.3);
+  }
+  .product-preview-img {
+    height: 220px;
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+  }
+  .product-preview-img img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s;
+  }
+  .product-preview-card:hover .product-preview-img img {
+    transform: scale(1.08);
+  }
+  .product-preview-info {
+    padding: 24px;
+  }
+  .product-preview-cat {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .product-preview-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .product-preview-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .arrow-right { transition: transform 0.2s; }
+  .product-preview-card:hover .arrow-right { transform: translateX(4px); }
+
+  .view-all-wrap {
+    text-align: center;
+    margin-top: 48px;
+  }
+
+  /* BULK CTA */
+  .bulk-cta-section {
+    padding: 100px 48px;
+    background: var(--deep);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .bulk-cta-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 80% at 50% 50%, rgba(13,126,154,0.1) 0%, transparent 70%);
+  }
+  .bulk-cta-content { position: relative; z-index: 2; }
+  .bulk-cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .bulk-cta-title em {
+    font-style: normal;
+    -webkit-text-stroke: 2px var(--gold);
+    color: transparent;
+  }
+  .bulk-cta-sub {
+    font-size: 18px;
+    color: var(--silver);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  /* WHATSAPP FLOAT */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 32px; right: 32px;
+    z-index: 5000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+  .wa-tooltip {
+    background: rgba(6,16,32,0.95);
+    border: 1px solid rgba(0,229,255,0.2);
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--white);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .whatsapp-float:hover .wa-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .wa-btn {
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    animation: waFloat 3s ease-in-out infinite;
+  }
+  .wa-btn::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(37,211,102,0.4);
+    animation: waPulse 2s ease infinite;
+  }
+  @keyframes waPulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.3); opacity: 0; }
+  }
+  @keyframes waFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .wa-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 32px rgba(37,211,102,0.6);
+  }
+  .wa-icon { font-size: 28px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid rgba(0,229,255,0.1);
+    padding: 64px 48px 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+  }
+  .footer-brand-sub {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .footer-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--silver);
+    margin-bottom: 24px;
+  }
+  .footer-col-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    font-size: 14px;
+    color: var(--silver);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-links a::before {
+    content: '›';
+    color: var(--teal);
+  }
+
+  .footer-location {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(13,126,154,0.08);
+    border: 1px solid rgba(0,229,255,0.1);
+    margin-bottom: 12px;
+  }
+  .location-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .location-text { font-size: 13px; line-height: 1.6; color: var(--silver); }
+  .location-title { font-weight: 700; color: var(--white); margin-bottom: 4px; font-size: 14px; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(0,229,255,0.08);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-copy {
+    font-size: 13px;
+    color: var(--silver);
+    letter-spacing: 0.5px;
+  }
+  .footer-copy span { color: var(--teal); }
+  .footer-legal {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-legal a {
+    font-size: 12px;
+    color: var(--silver);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+  }
+  .footer-legal a:hover { color: var(--accent); }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 12px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 20px; }
+    .hero-visual { display: none; }
+    .stats-section { grid-template-columns: repeat(2, 1fr); padding: 40px 20px; }
+    .features-section, .products-preview { padding: 60px 20px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    footer { padding: 40px 20px 24px; }
+    .bulk-cta-section { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon">B</div>
+    <div class="nav-logo-text">
+      <div class="nav-logo-brand">Barbell</div>
+      <div class="nav-logo-sub">Sarvagya Dynamic Solutions</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge"><span class="badge-dot"></span> Premium Home Appliance Parts</div>
+    <div class="hero-company">Sarvagya Dynamic Solutions</div>
+    <h1 class="hero-title">
+      BARBELL
+      <span>BRAND</span>
+    </h1>
+    <p class="hero-sub">India's trusted source for premium washing machine & home appliance spare parts. Quality you can rely on — delivered across India.</p>
+
+    <div class="bulk-banner">
+      <span class="bulk-icon">🚚</span>
+      <div>
+        <div class="bulk-text">WE SHIP BULK ORDERS</div>
+        <div class="bulk-sub">Wholesale &amp; B2B Available — Contact Us Today</div>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="products.html" class="btn-primary">
+        <span>Explore Products</span>
+        <span>→</span>
+      </a>
+      <a href="contact.html" class="btn-secondary">
+        <span>Get a Quote</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-product-ring">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+      <div class="hero-center-logo">
+        <svg class="hex-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0a1e3d"/>
+              <stop offset="100%" stop-color="#0d7e9a"/>
+            </linearGradient>
+            <linearGradient id="hg2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0d7e9a"/>
+              <stop offset="100%" stop-color="#1ab8d8"/>
+            </linearGradient>
+          </defs>
+          <polygon points="100,10 180,55 180,145 100,190 20,145 20,55" fill="url(#hg1)" stroke="rgba(0,229,255,0.4)" stroke-width="1"/>
+          <polygon points="100,25 165,62.5 165,137.5 100,175 35,137.5 35,62.5" fill="url(#hg2)" opacity="0.4"/>
+          <line x1="92" y1="30" x2="92" y2="170" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+          <line x1="103" y1="30" x2="103" y2="170" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M103 55 Q150 55 150 85 Q150 115 103 115" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+          <line x1="103" y1="113" x2="155" y2="113" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span> Samsung Compatible Parts</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Washer Drain Hoses</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Magic Lint Filters</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Fridge Door Guards</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Bulk Orders Welcome</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Pan India Delivery</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Samsung Compatible Parts</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Washer Drain Hoses</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Magic Lint Filters</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Fridge Door Guards</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Bulk Orders Welcome</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> Pan India Delivery</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stat-card reveal">
+    <div class="stat-number" data-target="500">0</div>
+    <div class="stat-label">Products Listed</div>
+  </div>
+  <div class="stat-card reveal">
+    <div class="stat-number" data-target="10000">0</div>
+    <div class="stat-label">Orders Delivered</div>
+  </div>
+  <div class="stat-card reveal">
+    <div class="stat-number" data-target="28">0</div>
+    <div class="stat-label">States Served</div>
+  </div>
+  <div class="stat-card reveal">
+    <div class="stat-number" data-target="100">0</div>
+    <div class="stat-label">% Quality Checked</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="section-header reveal">
+    <div class="section-tag">Why Choose Us</div>
+    <h2 class="section-title">BUILT FOR <span>EXCELLENCE</span></h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">🏭</div>
+      <div class="feature-title">OEM Quality Parts</div>
+      <p class="feature-desc">Every BARBELL product is rigorously tested to match or exceed original manufacturer specifications. No compromise on quality.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🚚</div>
+      <div class="feature-title">Bulk Shipping Ready</div>
+      <p class="feature-desc">We specialise in bulk and wholesale orders. Competitive pricing, reliable logistics, and flexible delivery across all of India.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Easy to Install</div>
+      <p class="feature-desc">All BARBELL spare parts are designed for quick, tool-free installation. Get your appliances running again in minutes.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🛡️</div>
+      <div class="feature-title">Durable Materials</div>
+      <p class="feature-desc">High-grade PVC, EVA, and PP materials ensure long service life, corrosion resistance, and leak-proof performance.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">📦</div>
+      <div class="feature-title">Wide Compatibility</div>
+      <p class="feature-desc">Compatible with top-load, semi-automatic, and fully automatic washing machines. Samsung, LG, Whirlpool, and more.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">💬</div>
+      <div class="feature-title">WhatsApp Support</div>
+      <p class="feature-desc">Instant customer support via WhatsApp. Order directly, ask questions, and get real-time help — fast and personal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS PREVIEW -->
+<section class="products-preview">
+  <div class="section-header reveal">
+    <div class="section-tag">Our Products</div>
+    <h2 class="section-title">TOP <span>CATEGORIES</span></h2>
+  </div>
+
+  <div class="products-grid">
+    <a href="products.html#lint-filter" class="product-preview-card reveal">
+      <div class="product-preview-img">
+        <img src="img/lint-filter-1.jpg" alt="Samsung Magic Lint Filter" 
+             onerror="this.style.background='linear-gradient(135deg,#e8f4f8,#b8d8e8)';this.style.display='block'">
+      </div>
+      <div class="product-preview-info">
+        <div class="product-preview-cat">Washing Machine</div>
+        <div class="product-preview-name">Samsung Magic Lint Filter</div>
+        <div class="product-preview-btn">View Product <span class="arrow-right">→</span></div>
+      </div>
+    </a>
+    <a href="products.html#drain-hose" class="product-preview-card reveal">
+      <div class="img/flexible-drain-hose.jpg" style="background:#f5f5f5; display:flex; align-items:center; justify-content:center">
+        <div style="font-size:80px">🔧</div>
+      </div>
+      <div class="product-preview-info">
+        <div class="product-preview-cat">Washing Machine</div>
+        <div class="product-preview-name">Washer Drain Hoses</div>
+        <div class="product-preview-btn">View Product <span class="arrow-right">→</span></div>
+      </div>
+    </a>
+    <a href="products.html#fridge-guard" class="product-preview-card reveal">
+      <div class="product-preview-img" style="background:#eef5ff; display:flex; align-items:center; justify-content:center">
+        <div style="font-size:80px">❄️</div>
+      </div>
+      <div class="product-preview-info">
+        <div class="product-preview-cat">Refrigerator</div>
+        <div class="product-preview-name">Fridge Door Bottle Guard</div>
+        <div class="product-preview-btn">View Product <span class="arrow-right">→</span></div>
+      </div>
+    </a>
+  </div>
+
+  <div class="view-all-wrap reveal">
+    <a href="products.html" class="btn-primary">View All Products →</a>
+  </div>
+</section>
+
+<!-- BULK CTA -->
+<section class="bulk-cta-section">
+  <div class="bulk-cta-bg"></div>
+  <div class="bulk-cta-content reveal">
+    <h2 class="bulk-cta-title">WE ALSO SHIP <em>BULK DELIVERIES</em></h2>
+    <p class="bulk-cta-sub">Whether you're a retailer, distributor, or service centre — Sarvagya Dynamic Solutions is your trusted wholesale partner for BARBELL spare parts across India.</p>
+    <a href="https://wa.me/919455799299?text=Dear%20Sarvagya%20Dynamic%20Solutions%2C%20I%20am%20interested%20in%20placing%20a%20bulk%20order%20for%20your%20products.%20Please%20share%20wholesale%20pricing." 
+       target="_blank" class="btn-primary" style="font-size:14px; padding:16px 40px;">
+      💬 Enquire for Bulk Orders
+    </a>
+  </div>
+</section>
+
+<!-- WHATSAPP FLOAT -->
+<div class="whatsapp-float">
+  <div class="wa-tooltip">Chat with us on WhatsApp</div>
+  <a class="wa-btn" href="https://wa.me/919455799299?text=Dear%20Sarvagya%20Dynamic%20Solutions%2C%20I%20am%20looking%20for%20a%20product%20and%20would%20like%20more%20information." target="_blank">
+    <span class="wa-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 2C8.268 2 2 8.268 2 16C2 18.773 2.812 21.36 4.21 23.528L2.1 29.9L8.672 27.826C10.77 29.13 13.3 29.9 16 29.9C23.732 29.9 30 23.632 30 15.9C30 8.168 23.732 2 16 2Z" fill="white"/>
+        <path d="M22.9 19.9C22.6 19.7 21.1 19.0 20.8 18.9C20.5 18.8 20.3 18.7 20.1 19.0C19.9 19.3 19.3 19.9 19.1 20.1C18.9 20.3 18.7 20.3 18.4 20.2C17.4 19.7 16.5 19.1 15.7 18.3C15.0 17.6 14.4 16.7 13.9 15.8C13.7 15.5 13.9 15.3 14.1 15.1C14.3 14.9 14.5 14.7 14.7 14.5C14.9 14.3 14.9 14.1 15.0 13.9C15.1 13.7 15.0 13.5 15.0 13.3C14.9 13.1 14.3 11.6 14.0 11.0C13.8 10.5 13.5 10.5 13.3 10.5H12.8C12.6 10.5 12.2 10.6 11.9 10.9C11.6 11.2 10.8 11.9 10.8 13.4C10.8 14.9 11.9 16.3 12.1 16.5C12.3 16.7 14.3 19.8 17.4 21.1C18.1 21.4 18.7 21.6 19.2 21.7C19.9 21.9 20.6 21.9 21.1 21.8C21.7 21.7 22.9 21.1 23.2 20.4C23.5 19.7 23.5 19.2 23.4 19.1C23.3 19.0 23.1 19.0 22.9 19.9Z" fill="#25D366"/>
+      </svg>
+    </span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-name">BARBELL</div>
+      <div class="footer-brand-sub">Sarvagya Dynamic Solutions</div>
+      <p class="footer-desc">Your trusted source for premium washing machine and home appliance spare parts. We deliver quality, durability, and reliability — right to your doorstep across India.</p>
+      <p style="font-size:13px; color:var(--teal); letter-spacing:1px;">📞 +91 94557 99299</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contact.html">Enquire Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Products</div>
+      <ul class="footer-links">
+        <li><a href="products.html#lint-filter">Magic Lint Filter</a></li>
+        <li><a href="products.html#drain-hose">Drain Hoses</a></li>
+        <li><a href="products.html#outlet-pipe">Outlet Pipes</a></li>
+        <li><a href="products.html#fridge-guard">Fridge Guards</a></li>
+        <li><a href="products.html#flexible-hose">Flexible Hoses</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Our Locations</div>
+      <div class="footer-location">
+        <span class="location-icon">📍</span>
+        <div class="location-text">
+          <div class="location-title">Head Office</div>
+          100,Chandamal Bidhuri road,Sector - ZU - 3  , Raipur Bang, Front of HAIER Gate NO.4 , Gautambuddha Nagar, UTTAR PRADESH, 201310, India
+        </div>
+      </div>
+      <div class="footer-location">
+        <span class="location-icon">🚚</span>
+        <div class="location-text">
+          <div class="location-title">Delivery</div>
+          Pan India — All 28 States & UTs
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>Sarvagya Dynamic Solutions</span>. All rights reserved. BARBELL® Brand.</div>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const follower = document.getElementById('cursorFollower');
+  let mx = 0, my = 0, fx = 0, fy = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+  function animFollower() {
+    fx += (mx - fx) * 0.1;
+    fy += (my - fy) * 0.1;
+    follower.style.left = fx - 18 + 'px';
+    follower.style.top = fy - 18 + 'px';
+    requestAnimationFrame(animFollower);
+  }
+  animFollower();
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Counter animation
+  function animateCount(el, target, suffix = '') {
+    let start = 0;
+    const duration = 1800;
+    const step = timestamp => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const val = Math.floor(progress * target);
+      el.textContent = val.toLocaleString() + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target.toLocaleString() + suffix;
+    };
+    requestAnimationFrame(step);
+  }
+
+  const statObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target.querySelector('.stat-number');
+        const target = parseInt(el.dataset.target);
+        animateCount(el, target);
+        statObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-card').forEach(c => statObserver.observe(c));
+</script>
+</body>
+</html>
