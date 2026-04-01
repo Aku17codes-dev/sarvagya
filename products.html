@@ -290,7 +290,6 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-    margin: 0 0 64px 0;
   }
   .bulk-strip::before {
     content: '';
@@ -311,6 +310,149 @@
     font-size: 16px; color: var(--silver); letter-spacing: 1px;
     margin-bottom: 20px;
   }
+
+  /* ─── INDIAMART BANNER ─── */
+  .indiamart-strip {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(100deg, #061020 0%, #071a10 35%, #081f14 55%, #061020 100%);
+    border-top: 1px solid rgba(0,229,255,0.1);
+    border-bottom: 1px solid rgba(0,229,255,0.1);
+    padding: 22px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  /* travelling shimmer beam */
+  .indiamart-strip::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 25%,
+      rgba(0, 229, 255, 0.055) 42%,
+      rgba(255, 200, 87, 0.07) 50%,
+      rgba(0, 229, 255, 0.055) 58%,
+      transparent 75%
+    );
+    background-size: 250% 100%;
+    animation: imBeam 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* subtle edge glow lines */
+  .indiamart-strip::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,229,255,0.25), rgba(255,200,87,0.2), rgba(0,229,255,0.25), transparent);
+    animation: imGlow 4s ease infinite;
+  }
+
+  @keyframes imBeam {
+    0%   { background-position: 250% 0; }
+    100% { background-position: -250% 0; }
+  }
+  @keyframes imGlow {
+    0%, 100% { opacity: 0.4; }
+    50%       { opacity: 1; }
+  }
+
+  .indiamart-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .indiamart-eyebrow {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3.5px;
+    color: var(--teal);
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.85;
+  }
+
+  .indiamart-pipe {
+    width: 1px;
+    height: 28px;
+    background: rgba(0,229,255,0.18);
+    flex-shrink: 0;
+  }
+
+  .indiamart-copy {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--silver);
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  .indiamart-copy strong {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .indiamart-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .im-btn {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 9px 22px;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.22s ease;
+  }
+
+  .im-btn-primary {
+    background: linear-gradient(90deg, #007a52, #00a36e);
+    color: #fff;
+    clip-path: polygon(7px 0%, 100% 0%, calc(100% - 7px) 100%, 0% 100%);
+    box-shadow: 0 0 0 rgba(0,163,110,0);
+  }
+  .im-btn-primary:hover {
+    background: linear-gradient(90deg, #00a36e, #00c986);
+    box-shadow: 0 6px 22px rgba(0,163,110,0.38);
+    transform: translateY(-2px);
+  }
+
+  .im-btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(0,229,255,0.25);
+    color: var(--accent);
+  }
+  .im-btn-ghost:hover {
+    background: rgba(0,229,255,0.07);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .indiamart-strip { padding: 18px 20px; }
+    .indiamart-pipe  { display: none; }
+    .indiamart-eyebrow { display: none; }
+    .indiamart-copy  { text-align: center; font-size: 14px; white-space: normal; }
+    .indiamart-inner { gap: 14px; }
+  }
+  /* ─── END INDIAMART BANNER ─── */
 
   /* WA FLOAT */
   .whatsapp-float {
@@ -435,13 +577,33 @@
   </div>
 </div>
 
+<!-- ─── INDIAMART BANNER ─── -->
+<div class="indiamart-strip">
+  <div class="indiamart-inner">
+    <span class="indiamart-eyebrow">🛒 Explore More</span>
+    <div class="indiamart-pipe"></div>
+    <span class="indiamart-copy">Visit our <strong>IndiaMart page</strong> to browse our full catalogue &amp; shop more products</span>
+    <div class="indiamart-actions">
+      <a class="im-btn im-btn-primary"
+         href="https://www.indiamart.com/sarvagya-dynamicsolutions"
+         target="_blank" rel="noopener">
+        🏪 Visit IndiaMart
+      </a>
+      <a class="im-btn im-btn-ghost" href="contact.html">
+        Contact Us
+      </a>
+    </div>
+  </div>
+</div>
+<!-- ─── END INDIAMART BANNER ─── -->
+
 <section class="products-section">
 
   <!-- WASHING MACHINE CATEGORY -->
   <div class="category-block washing" id="washing">
     <div class="category-header">
       <h2 class="category-title">WASHING MACHINE PARTS</h2>
-      <span class="category-count">5 Products</span>
+      <span class="category-count">6 Products</span>
       <div class="category-line"></div>
     </div>
 
@@ -451,7 +613,7 @@
       <div class="product-card reveal" id="lint-filter" data-category="washing drain">
         <span class="product-badge">Best Seller</span>
         <div class="product-img-wrap">
-          <img src="lint-filter-1.jpg" alt="Samsung Magic Lint Filter Circular" 
+          <img src="img/lint-filter-1.jpg" alt="Samsung Magic Lint Filter Circular" 
                onerror="this.parentElement.innerHTML='<div style=\'background:linear-gradient(135deg,#e8f4f8,#c0d8e8);height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px\'><div style=\'font-size:64px\'>🔵</div><div style=\'font-size:13px;color:#333;font-weight:700\'>Circular Lint Filter</div></div>'">
         </div>
         <div class="product-info">
@@ -476,7 +638,7 @@
       <div class="product-card reveal" data-category="washing drain">
         <span class="product-badge new">New</span>
         <div class="product-img-wrap">
-          <img src="lint-filter-2.jpg" alt="Samsung Magic Lint Filter Mesh"
+          <img src="img/lint-filter-2.jpg" alt="Samsung Magic Lint Filter Mesh"
                onerror="this.parentElement.innerHTML='<div style=\'background:linear-gradient(135deg,#e0f0f5,#b8ccd8);height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px\'><div style=\'font-size:64px\'>🔲</div><div style=\'font-size:13px;color:#333;font-weight:700\'>Mesh Lint Filter</div></div>'">
         </div>
         <div class="product-info">
@@ -501,7 +663,7 @@
       <div class="product-card reveal" id="outlet-pipe" data-category="washing drain">
         <span class="product-badge bulk">Bulk</span>
         <div class="product-img-wrap">
-          <img src="outlet-pipe.jpg" alt="Top Load Washing Machine Outlet Pipe"
+          <img src="img/outlet-pipe.jpg" alt="Top Load Washing Machine Outlet Pipe"
                onerror="this.parentElement.innerHTML='<div style=\'background:linear-gradient(135deg,#eee,#ccc);height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px\'><div style=\'font-size:64px\'>🌀</div><div style=\'font-size:13px;color:#333;font-weight:700\'>Outlet Pipe</div></div>'">
         </div>
         <div class="product-info">
@@ -525,7 +687,7 @@
       <!-- Product 4: Corrugated Washer Drain Hose 6.5ft -->
       <div class="product-card reveal" id="drain-hose" data-category="washing drain">
         <div class="product-img-wrap">
-          <img src="drain-hose-corrugated.jpg" alt="6.5 Feet Corrugated Washer Drain Hose"
+          <img src="img/drain-hose-corrugated.jpg" alt="6.5 Feet Corrugated Washer Drain Hose"
                onerror="this.parentElement.innerHTML='<div style=\'background:linear-gradient(135deg,#e8e8e8,#d0d0d0);height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px\'><div style=\'font-size:64px\'>〰️</div><div style=\'font-size:13px;color:#333;font-weight:700\'>Corrugated Drain Hose</div></div>'">
         </div>
         <div class="product-info">
@@ -549,7 +711,7 @@
       <!-- Product 5: Flexible Washer Drain Hose (white expandable) -->
       <div class="product-card reveal" id="flexible-hose" data-category="washing drain">
         <div class="product-img-wrap">
-          <img src="flexible-drain-hose.jpg" alt="Flexible Expandable Washer Drain Hose"
+          <img src="img/flexible-drain-hose.jpg" alt="Flexible Expandable Washer Drain Hose"
                onerror="this.parentElement.innerHTML='<div style=\'background:linear-gradient(135deg,#f5f5f5,#e0e0e0);height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px\'><div style=\'font-size:64px\'>🔩</div><div style=\'font-size:13px;color:#333;font-weight:700\'>Flexible Drain Hose</div></div>'">
         </div>
         <div class="product-info">
@@ -573,7 +735,7 @@
       <!-- Product 6: PVC Washer Drain Hose (White S-trap) -->
       <div class="product-card reveal" data-category="washing drain">
         <div class="product-img-wrap">
-          <img src="pvc-drain-hose.jpg" alt="PVC One-Piece Washer Drain Hose"
+          <img src="img/pvc-drain-hose.jpg" alt="PVC One-Piece Washer Drain Hose"
                onerror="this.parentElement.innerHTML='<div style=\'background:linear-gradient(135deg,#f0f0f0,#d8d8d8);height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px\'><div style=\'font-size:64px\'>🪠</div><div style=\'font-size:13px;color:#333;font-weight:700\'>PVC Drain Hose</div></div>'">
         </div>
         <div class="product-info">
@@ -597,21 +759,21 @@
     </div>
   </div>
 
-<!-- REFRIGERATOR CATEGORY -->
+  <!-- REFRIGERATOR CATEGORY -->
   <div class="category-block refrigerator" id="fridge">
     <div class="category-header">
       <h2 class="category-title">REFRIGERATOR PARTS</h2>
       <span class="category-count">1 Product</span>
       <div class="category-line"></div>
     </div>
- 
+
     <div class="products-grid">
- 
+
       <!-- Product 7: Fridge Door Bottle Guard -->
       <div class="product-card reveal" id="fridge-guard" data-category="refrigerator">
         <span class="product-badge">46% OFF</span>
         <div class="product-img-wrap">
-          <img src="fridge-guard.jpg" alt="Refrigerator Door Bottle Guard"
+          <img src="img/fridge-guard.jpg" alt="Refrigerator Door Bottle Guard"
                onerror="this.parentElement.innerHTML='<div style=\'background:linear-gradient(135deg,#e8f0ff,#c0d0f0);height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px\'><div style=\'font-size:64px\'>❄️</div><div style=\'font-size:13px;color:#333;font-weight:700\'>Fridge Door Guard</div></div>'">
         </div>
         <div class="product-info">
@@ -631,12 +793,12 @@
           </div>
         </div>
       </div>
- 
+
     </div>
   </div>
- 
+
 </section>
- 
+
 <!-- WA FLOAT -->
 <div class="whatsapp-float">
   <div class="wa-tooltip">Chat with us on WhatsApp</div>
@@ -647,7 +809,7 @@
     </svg>
   </a>
 </div>
- 
+
 <footer>
   <div class="footer-grid">
     <div>
@@ -681,7 +843,7 @@
         <span class="location-icon">📍</span>
         <div class="location-text">
           <div class="location-title">Head Office</div>
-          100,Chandamal Bidhuri road,Sector - ZU - 3  , Raipur Bang, Front of HAIER Gate NO.4 , Gautambuddha Nagar, UTTAR PRADESH, 201310, India
+          Patna, Bihar, India
         </div>
       </div>
       <div class="footer-location">
@@ -697,7 +859,7 @@
     <div class="footer-copy">© 2025 <span>Sarvagya Dynamic Solutions</span>. All rights reserved. BARBELL® Brand.</div>
   </div>
 </footer>
- 
+
 <script>
   const cursor = document.getElementById('cursor');
   const follower = document.getElementById('cursorFollower');
@@ -712,7 +874,7 @@
     requestAnimationFrame(animFollower);
   }
   animFollower();
- 
+
   const observer = new IntersectionObserver(entries=>{
     entries.forEach((e,i)=>{
       if(e.isIntersecting){
@@ -722,7 +884,7 @@
     });
   },{threshold:0.1});
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
- 
+
   function filterProducts(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
