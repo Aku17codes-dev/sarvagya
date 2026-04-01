@@ -1013,7 +1013,7 @@
       </div>
     </a>
     <a href="products.html#drain-hose" class="product-preview-card reveal">
-      <div class="img/flexible-drain-hose.jpg" style="background:#f5f5f5; display:flex; align-items:center; justify-content:center">
+      <div class="flexible-drain-hose.jpg" style="background:#f5f5f5; display:flex; align-items:center; justify-content:center">
         <div style="font-size:80px">🔧</div>
       </div>
       <div class="product-preview-info">
@@ -1103,81 +1103,3 @@
         </div>
       </div>
       <div class="footer-location">
-        <span class="location-icon">🚚</span>
-        <div class="location-text">
-          <div class="location-title">Delivery</div>
-          Pan India — All 28 States & UTs
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2025 <span>Sarvagya Dynamic Solutions</span>. All rights reserved. BARBELL® Brand.</div>
-    <div class="footer-legal">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const follower = document.getElementById('cursorFollower');
-  let mx = 0, my = 0, fx = 0, fy = 0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx - 6 + 'px';
-    cursor.style.top = my - 6 + 'px';
-  });
-  function animFollower() {
-    fx += (mx - fx) * 0.1;
-    fy += (my - fy) * 0.1;
-    follower.style.left = fx - 18 + 'px';
-    follower.style.top = fy - 18 + 'px';
-    requestAnimationFrame(animFollower);
-  }
-  animFollower();
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Counter animation
-  function animateCount(el, target, suffix = '') {
-    let start = 0;
-    const duration = 1800;
-    const step = timestamp => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
-      const val = Math.floor(progress * target);
-      el.textContent = val.toLocaleString() + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = target.toLocaleString() + suffix;
-    };
-    requestAnimationFrame(step);
-  }
-
-  const statObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const el = e.target.querySelector('.stat-number');
-        const target = parseInt(el.dataset.target);
-        animateCount(el, target);
-        statObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.stat-card').forEach(c => statObserver.observe(c));
-</script>
-</body>
-</html>
